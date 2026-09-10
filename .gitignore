@@ -1,0 +1,8 @@
+node_modules
+dist
+.env
+.DS_Store
+
+# Prévia local sem Node (ferramenta de desenvolvimento)
+preview-server.py
+client/preview.html
