@@ -22,10 +22,32 @@ npm run build   # gera a pasta dist/
 npm start       # Express serve dist/ na porta $PORT (padrão 3001)
 ```
 
-### Hospedagem
+### Hospedagem na Cloudflare (Worker + Static Assets)
+
+O site é servido pelos Static Assets da Cloudflare (`dist/`); o Worker em `worker/index.js`
+responde apenas às rotas `/api/*`. Configuração em `wrangler.jsonc`.
+
+**Pelo painel (deploy automático a cada push):**
+Workers & Pages → Create → Import a repository → este repositório, com:
+
+- Build command: `npm run build`
+- Deploy command: `npx wrangler deploy`
+
+**Pelo terminal:**
+
+```bash
+npx wrangler login
+npm run deploy
+```
+
+Teste local no ambiente da Cloudflare: `npm run cf:dev`.
+
+Cabeçalhos de cache ficam em `client/public/_headers`. Limite da Cloudflare: 25 MiB por arquivo.
+
+### Outras hospedagens
 
 - **Servidor Node** (Render, Railway, VPS…): build `npm install && npm run build`, start `npm start`.
-- **Hospedagem estática** (Vercel, Netlify…): build `npm run build`, pasta de saída `dist`. O site não depende da API.
+- **Hospedagem estática** (Vercel, Netlify…): build `npm run build`, pasta de saída `dist`.
 
 ## Onde editar
 
